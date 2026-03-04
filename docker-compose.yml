@@ -1,0 +1,11 @@
+services:
+    postgres:
+        image: postgres:latest
+        container_name: postgres
+        volumes: []
+        environment:
+            POSTGRES_DB: meetingdb
+            POSTGRES_USER: dev
+            POSTGRES_PASSWORD: devpass
+        ports:
+            - "5432:5432"
