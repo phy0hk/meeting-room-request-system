@@ -12,3 +12,44 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum Role {
+  USER
+  ADMIN
+  OWNER
+}
+
+enum BookingStatus {
+  CONFIRMED // User successfully book a meeting room
+  COMPLETED // The meeting time has passed successfully
+  CANCELLED // User Cancelled by him/herself or Cancel By owner or admin
+}
+
+model tblUsers {
+  id       Int           @id @default(autoincrement())
+  name     String
+  username String        @unique
+  role     Role          @default(USER)
+  password String
+  bookings tblBookings[]
+}
+
+model tblBookings {
+  id            Int      @id @default(autoincrement())
+  user          tblUsers @relation(fields: [userId], references: [id])
+  userId        Int
+  room          tblRooms @relation(fields: [roomId], references: [id])
+  roomId        Int
+  attendeeCount Int //how many people will be attending to this meeting
+  bookingStatus String
+  startTime     DateTime
+  endTime       DateTime
+  createdAt     DateTime @default(now())
+}
+
+model tblRooms {
+  id       Int           @id @default(autoincrement())
+  name     String        @unique
+  capacity Int
+  bookings tblBookings[]
+}
