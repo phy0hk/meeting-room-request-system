@@ -7,6 +7,7 @@ export enum UserRole {
 }
 
 export interface Route {
+    id: number;
     url: string;
     icon: ElementType;
     name: string;

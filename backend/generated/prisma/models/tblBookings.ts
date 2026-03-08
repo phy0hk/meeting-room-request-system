@@ -43,6 +43,7 @@ export type TblBookingsSumAggregateOutputType = {
 export type TblBookingsMinAggregateOutputType = {
   id: number | null
   userId: number | null
+  description: string | null
   roomId: number | null
   attendeeCount: number | null
   bookingStatus: $Enums.BookingStatus | null
@@ -54,6 +55,7 @@ export type TblBookingsMinAggregateOutputType = {
 export type TblBookingsMaxAggregateOutputType = {
   id: number | null
   userId: number | null
+  description: string | null
   roomId: number | null
   attendeeCount: number | null
   bookingStatus: $Enums.BookingStatus | null
@@ -65,6 +67,7 @@ export type TblBookingsMaxAggregateOutputType = {
 export type TblBookingsCountAggregateOutputType = {
   id: number
   userId: number
+  description: number
   roomId: number
   attendeeCount: number
   bookingStatus: number
@@ -92,6 +95,7 @@ export type TblBookingsSumAggregateInputType = {
 export type TblBookingsMinAggregateInputType = {
   id?: true
   userId?: true
+  description?: true
   roomId?: true
   attendeeCount?: true
   bookingStatus?: true
@@ -103,6 +107,7 @@ export type TblBookingsMinAggregateInputType = {
 export type TblBookingsMaxAggregateInputType = {
   id?: true
   userId?: true
+  description?: true
   roomId?: true
   attendeeCount?: true
   bookingStatus?: true
@@ -114,6 +119,7 @@ export type TblBookingsMaxAggregateInputType = {
 export type TblBookingsCountAggregateInputType = {
   id?: true
   userId?: true
+  description?: true
   roomId?: true
   attendeeCount?: true
   bookingStatus?: true
@@ -212,6 +218,7 @@ export type tblBookingsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type TblBookingsGroupByOutputType = {
   id: number
   userId: number
+  description: string
   roomId: number
   attendeeCount: number
   bookingStatus: $Enums.BookingStatus
@@ -246,6 +253,7 @@ export type tblBookingsWhereInput = {
   NOT?: Prisma.tblBookingsWhereInput | Prisma.tblBookingsWhereInput[]
   id?: Prisma.IntFilter<"tblBookings"> | number
   userId?: Prisma.IntFilter<"tblBookings"> | number
+  description?: Prisma.StringFilter<"tblBookings"> | string
   roomId?: Prisma.IntFilter<"tblBookings"> | number
   attendeeCount?: Prisma.IntFilter<"tblBookings"> | number
   bookingStatus?: Prisma.EnumBookingStatusFilter<"tblBookings"> | $Enums.BookingStatus
@@ -259,6 +267,7 @@ export type tblBookingsWhereInput = {
 export type tblBookingsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
   attendeeCount?: Prisma.SortOrder
   bookingStatus?: Prisma.SortOrder
@@ -275,6 +284,7 @@ export type tblBookingsWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.tblBookingsWhereInput[]
   NOT?: Prisma.tblBookingsWhereInput | Prisma.tblBookingsWhereInput[]
   userId?: Prisma.IntFilter<"tblBookings"> | number
+  description?: Prisma.StringFilter<"tblBookings"> | string
   roomId?: Prisma.IntFilter<"tblBookings"> | number
   attendeeCount?: Prisma.IntFilter<"tblBookings"> | number
   bookingStatus?: Prisma.EnumBookingStatusFilter<"tblBookings"> | $Enums.BookingStatus
@@ -288,6 +298,7 @@ export type tblBookingsWhereUniqueInput = Prisma.AtLeast<{
 export type tblBookingsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
   attendeeCount?: Prisma.SortOrder
   bookingStatus?: Prisma.SortOrder
@@ -307,6 +318,7 @@ export type tblBookingsScalarWhereWithAggregatesInput = {
   NOT?: Prisma.tblBookingsScalarWhereWithAggregatesInput | Prisma.tblBookingsScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"tblBookings"> | number
   userId?: Prisma.IntWithAggregatesFilter<"tblBookings"> | number
+  description?: Prisma.StringWithAggregatesFilter<"tblBookings"> | string
   roomId?: Prisma.IntWithAggregatesFilter<"tblBookings"> | number
   attendeeCount?: Prisma.IntWithAggregatesFilter<"tblBookings"> | number
   bookingStatus?: Prisma.EnumBookingStatusWithAggregatesFilter<"tblBookings"> | $Enums.BookingStatus
@@ -316,6 +328,7 @@ export type tblBookingsScalarWhereWithAggregatesInput = {
 }
 
 export type tblBookingsCreateInput = {
+  description: string
   attendeeCount: number
   bookingStatus?: $Enums.BookingStatus
   startTime: Date | string
@@ -328,6 +341,7 @@ export type tblBookingsCreateInput = {
 export type tblBookingsUncheckedCreateInput = {
   id?: number
   userId: number
+  description: string
   roomId: number
   attendeeCount: number
   bookingStatus?: $Enums.BookingStatus
@@ -337,6 +351,7 @@ export type tblBookingsUncheckedCreateInput = {
 }
 
 export type tblBookingsUpdateInput = {
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   attendeeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookingStatus?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -349,6 +364,7 @@ export type tblBookingsUpdateInput = {
 export type tblBookingsUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   roomId?: Prisma.IntFieldUpdateOperationsInput | number
   attendeeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookingStatus?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
@@ -360,6 +376,7 @@ export type tblBookingsUncheckedUpdateInput = {
 export type tblBookingsCreateManyInput = {
   id?: number
   userId: number
+  description: string
   roomId: number
   attendeeCount: number
   bookingStatus?: $Enums.BookingStatus
@@ -369,6 +386,7 @@ export type tblBookingsCreateManyInput = {
 }
 
 export type tblBookingsUpdateManyMutationInput = {
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   attendeeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookingStatus?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -379,6 +397,7 @@ export type tblBookingsUpdateManyMutationInput = {
 export type tblBookingsUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   roomId?: Prisma.IntFieldUpdateOperationsInput | number
   attendeeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookingStatus?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
@@ -400,6 +419,7 @@ export type tblBookingsOrderByRelationAggregateInput = {
 export type tblBookingsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
   attendeeCount?: Prisma.SortOrder
   bookingStatus?: Prisma.SortOrder
@@ -418,6 +438,7 @@ export type tblBookingsAvgOrderByAggregateInput = {
 export type tblBookingsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
   attendeeCount?: Prisma.SortOrder
   bookingStatus?: Prisma.SortOrder
@@ -429,6 +450,7 @@ export type tblBookingsMaxOrderByAggregateInput = {
 export type tblBookingsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
   attendeeCount?: Prisma.SortOrder
   bookingStatus?: Prisma.SortOrder
@@ -537,6 +559,7 @@ export type tblBookingsUncheckedUpdateManyWithoutRoomNestedInput = {
 }
 
 export type tblBookingsCreateWithoutUserInput = {
+  description: string
   attendeeCount: number
   bookingStatus?: $Enums.BookingStatus
   startTime: Date | string
@@ -547,6 +570,7 @@ export type tblBookingsCreateWithoutUserInput = {
 
 export type tblBookingsUncheckedCreateWithoutUserInput = {
   id?: number
+  description: string
   roomId: number
   attendeeCount: number
   bookingStatus?: $Enums.BookingStatus
@@ -587,6 +611,7 @@ export type tblBookingsScalarWhereInput = {
   NOT?: Prisma.tblBookingsScalarWhereInput | Prisma.tblBookingsScalarWhereInput[]
   id?: Prisma.IntFilter<"tblBookings"> | number
   userId?: Prisma.IntFilter<"tblBookings"> | number
+  description?: Prisma.StringFilter<"tblBookings"> | string
   roomId?: Prisma.IntFilter<"tblBookings"> | number
   attendeeCount?: Prisma.IntFilter<"tblBookings"> | number
   bookingStatus?: Prisma.EnumBookingStatusFilter<"tblBookings"> | $Enums.BookingStatus
@@ -596,6 +621,7 @@ export type tblBookingsScalarWhereInput = {
 }
 
 export type tblBookingsCreateWithoutRoomInput = {
+  description: string
   attendeeCount: number
   bookingStatus?: $Enums.BookingStatus
   startTime: Date | string
@@ -607,6 +633,7 @@ export type tblBookingsCreateWithoutRoomInput = {
 export type tblBookingsUncheckedCreateWithoutRoomInput = {
   id?: number
   userId: number
+  description: string
   attendeeCount: number
   bookingStatus?: $Enums.BookingStatus
   startTime: Date | string
@@ -642,6 +669,7 @@ export type tblBookingsUpdateManyWithWhereWithoutRoomInput = {
 
 export type tblBookingsCreateManyUserInput = {
   id?: number
+  description: string
   roomId: number
   attendeeCount: number
   bookingStatus?: $Enums.BookingStatus
@@ -651,6 +679,7 @@ export type tblBookingsCreateManyUserInput = {
 }
 
 export type tblBookingsUpdateWithoutUserInput = {
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   attendeeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookingStatus?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -661,6 +690,7 @@ export type tblBookingsUpdateWithoutUserInput = {
 
 export type tblBookingsUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   roomId?: Prisma.IntFieldUpdateOperationsInput | number
   attendeeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookingStatus?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
@@ -671,6 +701,7 @@ export type tblBookingsUncheckedUpdateWithoutUserInput = {
 
 export type tblBookingsUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   roomId?: Prisma.IntFieldUpdateOperationsInput | number
   attendeeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookingStatus?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
@@ -682,6 +713,7 @@ export type tblBookingsUncheckedUpdateManyWithoutUserInput = {
 export type tblBookingsCreateManyRoomInput = {
   id?: number
   userId: number
+  description: string
   attendeeCount: number
   bookingStatus?: $Enums.BookingStatus
   startTime: Date | string
@@ -690,6 +722,7 @@ export type tblBookingsCreateManyRoomInput = {
 }
 
 export type tblBookingsUpdateWithoutRoomInput = {
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   attendeeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookingStatus?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -701,6 +734,7 @@ export type tblBookingsUpdateWithoutRoomInput = {
 export type tblBookingsUncheckedUpdateWithoutRoomInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   attendeeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookingStatus?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -711,6 +745,7 @@ export type tblBookingsUncheckedUpdateWithoutRoomInput = {
 export type tblBookingsUncheckedUpdateManyWithoutRoomInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   attendeeCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookingStatus?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -723,6 +758,7 @@ export type tblBookingsUncheckedUpdateManyWithoutRoomInput = {
 export type tblBookingsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  description?: boolean
   roomId?: boolean
   attendeeCount?: boolean
   bookingStatus?: boolean
@@ -736,6 +772,7 @@ export type tblBookingsSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 export type tblBookingsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  description?: boolean
   roomId?: boolean
   attendeeCount?: boolean
   bookingStatus?: boolean
@@ -749,6 +786,7 @@ export type tblBookingsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
 export type tblBookingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  description?: boolean
   roomId?: boolean
   attendeeCount?: boolean
   bookingStatus?: boolean
@@ -762,6 +800,7 @@ export type tblBookingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type tblBookingsSelectScalar = {
   id?: boolean
   userId?: boolean
+  description?: boolean
   roomId?: boolean
   attendeeCount?: boolean
   bookingStatus?: boolean
@@ -770,7 +809,7 @@ export type tblBookingsSelectScalar = {
   createdAt?: boolean
 }
 
-export type tblBookingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "roomId" | "attendeeCount" | "bookingStatus" | "startTime" | "endTime" | "createdAt", ExtArgs["result"]["tblBookings"]>
+export type tblBookingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "description" | "roomId" | "attendeeCount" | "bookingStatus" | "startTime" | "endTime" | "createdAt", ExtArgs["result"]["tblBookings"]>
 export type tblBookingsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.tblUsersDefaultArgs<ExtArgs>
   room?: boolean | Prisma.tblRoomsDefaultArgs<ExtArgs>
@@ -793,6 +832,7 @@ export type $tblBookingsPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     userId: number
+    description: string
     roomId: number
     attendeeCount: number
     bookingStatus: $Enums.BookingStatus
@@ -1226,6 +1266,7 @@ export interface Prisma__tblBookingsClient<T, Null = never, ExtArgs extends runt
 export interface tblBookingsFieldRefs {
   readonly id: Prisma.FieldRef<"tblBookings", 'Int'>
   readonly userId: Prisma.FieldRef<"tblBookings", 'Int'>
+  readonly description: Prisma.FieldRef<"tblBookings", 'String'>
   readonly roomId: Prisma.FieldRef<"tblBookings", 'Int'>
   readonly attendeeCount: Prisma.FieldRef<"tblBookings", 'Int'>
   readonly bookingStatus: Prisma.FieldRef<"tblBookings", 'BookingStatus'>

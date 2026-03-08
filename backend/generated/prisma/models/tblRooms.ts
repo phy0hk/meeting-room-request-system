@@ -28,60 +28,50 @@ export type AggregateTblRooms = {
 
 export type TblRoomsAvgAggregateOutputType = {
   id: number | null
-  capacity: number | null
 }
 
 export type TblRoomsSumAggregateOutputType = {
   id: number | null
-  capacity: number | null
 }
 
 export type TblRoomsMinAggregateOutputType = {
   id: number | null
   name: string | null
-  capacity: number | null
 }
 
 export type TblRoomsMaxAggregateOutputType = {
   id: number | null
   name: string | null
-  capacity: number | null
 }
 
 export type TblRoomsCountAggregateOutputType = {
   id: number
   name: number
-  capacity: number
   _all: number
 }
 
 
 export type TblRoomsAvgAggregateInputType = {
   id?: true
-  capacity?: true
 }
 
 export type TblRoomsSumAggregateInputType = {
   id?: true
-  capacity?: true
 }
 
 export type TblRoomsMinAggregateInputType = {
   id?: true
   name?: true
-  capacity?: true
 }
 
 export type TblRoomsMaxAggregateInputType = {
   id?: true
   name?: true
-  capacity?: true
 }
 
 export type TblRoomsCountAggregateInputType = {
   id?: true
   name?: true
-  capacity?: true
   _all?: true
 }
 
@@ -174,7 +164,6 @@ export type tblRoomsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type TblRoomsGroupByOutputType = {
   id: number
   name: string
-  capacity: number
   _count: TblRoomsCountAggregateOutputType | null
   _avg: TblRoomsAvgAggregateOutputType | null
   _sum: TblRoomsSumAggregateOutputType | null
@@ -203,14 +192,12 @@ export type tblRoomsWhereInput = {
   NOT?: Prisma.tblRoomsWhereInput | Prisma.tblRoomsWhereInput[]
   id?: Prisma.IntFilter<"tblRooms"> | number
   name?: Prisma.StringFilter<"tblRooms"> | string
-  capacity?: Prisma.IntFilter<"tblRooms"> | number
   bookings?: Prisma.TblBookingsListRelationFilter
 }
 
 export type tblRoomsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  capacity?: Prisma.SortOrder
   bookings?: Prisma.tblBookingsOrderByRelationAggregateInput
 }
 
@@ -220,14 +207,12 @@ export type tblRoomsWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.tblRoomsWhereInput | Prisma.tblRoomsWhereInput[]
   OR?: Prisma.tblRoomsWhereInput[]
   NOT?: Prisma.tblRoomsWhereInput | Prisma.tblRoomsWhereInput[]
-  capacity?: Prisma.IntFilter<"tblRooms"> | number
   bookings?: Prisma.TblBookingsListRelationFilter
 }, "id" | "name">
 
 export type tblRoomsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  capacity?: Prisma.SortOrder
   _count?: Prisma.tblRoomsCountOrderByAggregateInput
   _avg?: Prisma.tblRoomsAvgOrderByAggregateInput
   _max?: Prisma.tblRoomsMaxOrderByAggregateInput
@@ -241,50 +226,42 @@ export type tblRoomsScalarWhereWithAggregatesInput = {
   NOT?: Prisma.tblRoomsScalarWhereWithAggregatesInput | Prisma.tblRoomsScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"tblRooms"> | number
   name?: Prisma.StringWithAggregatesFilter<"tblRooms"> | string
-  capacity?: Prisma.IntWithAggregatesFilter<"tblRooms"> | number
 }
 
 export type tblRoomsCreateInput = {
   name: string
-  capacity: number
   bookings?: Prisma.tblBookingsCreateNestedManyWithoutRoomInput
 }
 
 export type tblRoomsUncheckedCreateInput = {
   id?: number
   name: string
-  capacity: number
   bookings?: Prisma.tblBookingsUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type tblRoomsUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  capacity?: Prisma.IntFieldUpdateOperationsInput | number
   bookings?: Prisma.tblBookingsUpdateManyWithoutRoomNestedInput
 }
 
 export type tblRoomsUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  capacity?: Prisma.IntFieldUpdateOperationsInput | number
   bookings?: Prisma.tblBookingsUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type tblRoomsCreateManyInput = {
   id?: number
   name: string
-  capacity: number
 }
 
 export type tblRoomsUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  capacity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type tblRoomsUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  capacity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type TblRoomsScalarRelationFilter = {
@@ -295,29 +272,24 @@ export type TblRoomsScalarRelationFilter = {
 export type tblRoomsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  capacity?: Prisma.SortOrder
 }
 
 export type tblRoomsAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  capacity?: Prisma.SortOrder
 }
 
 export type tblRoomsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  capacity?: Prisma.SortOrder
 }
 
 export type tblRoomsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  capacity?: Prisma.SortOrder
 }
 
 export type tblRoomsSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  capacity?: Prisma.SortOrder
 }
 
 export type tblRoomsCreateNestedOneWithoutBookingsInput = {
@@ -336,13 +308,11 @@ export type tblRoomsUpdateOneRequiredWithoutBookingsNestedInput = {
 
 export type tblRoomsCreateWithoutBookingsInput = {
   name: string
-  capacity: number
 }
 
 export type tblRoomsUncheckedCreateWithoutBookingsInput = {
   id?: number
   name: string
-  capacity: number
 }
 
 export type tblRoomsCreateOrConnectWithoutBookingsInput = {
@@ -363,13 +333,11 @@ export type tblRoomsUpdateToOneWithWhereWithoutBookingsInput = {
 
 export type tblRoomsUpdateWithoutBookingsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  capacity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type tblRoomsUncheckedUpdateWithoutBookingsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  capacity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -406,7 +374,6 @@ export type TblRoomsCountOutputTypeCountBookingsArgs<ExtArgs extends runtime.Typ
 export type tblRoomsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  capacity?: boolean
   bookings?: boolean | Prisma.tblRooms$bookingsArgs<ExtArgs>
   _count?: boolean | Prisma.TblRoomsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tblRooms"]>
@@ -414,22 +381,19 @@ export type tblRoomsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type tblRoomsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  capacity?: boolean
 }, ExtArgs["result"]["tblRooms"]>
 
 export type tblRoomsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  capacity?: boolean
 }, ExtArgs["result"]["tblRooms"]>
 
 export type tblRoomsSelectScalar = {
   id?: boolean
   name?: boolean
-  capacity?: boolean
 }
 
-export type tblRoomsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "capacity", ExtArgs["result"]["tblRooms"]>
+export type tblRoomsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["tblRooms"]>
 export type tblRoomsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bookings?: boolean | Prisma.tblRooms$bookingsArgs<ExtArgs>
   _count?: boolean | Prisma.TblRoomsCountOutputTypeDefaultArgs<ExtArgs>
@@ -445,7 +409,6 @@ export type $tblRoomsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
-    capacity: number
   }, ExtArgs["result"]["tblRooms"]>
   composites: {}
 }
@@ -872,7 +835,6 @@ export interface Prisma__tblRoomsClient<T, Null = never, ExtArgs extends runtime
 export interface tblRoomsFieldRefs {
   readonly id: Prisma.FieldRef<"tblRooms", 'Int'>
   readonly name: Prisma.FieldRef<"tblRooms", 'String'>
-  readonly capacity: Prisma.FieldRef<"tblRooms", 'Int'>
 }
     
 

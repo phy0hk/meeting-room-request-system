@@ -23,18 +23,42 @@ function CheckCreateBookingBody(body: any): CreateBookingBody {
         throw new BadRequestError("Missing required field startTime");
     if (!body.endTime)
         throw new BadRequestError("Missing required field endTime");
+    if (!body.description)
+        throw new BadRequestError("Missing required field description");
     if (!body.attendeeCount)
         throw new BadRequestError("Missing required field attendeeCount");
     if (Number.isNaN(Number(body.attendeeCount)))
         throw new BadRequestError("attendeeCount should be number");
+    if (body.startTime == body.endTime)
+        throw new BadRequestError(
+            "meeting start time and end time should not be the same",
+        );
     return body as CreateBookingBody;
 }
 
 //DB Service
 
-async function GetAllBookings(): Promise<tblBookings[] | undefined> {
-    const bookings = await prisma.tblBookings.findMany();
-    return bookings;
+async function GetAllBookings() {
+    const bookings = await prisma.tblBookings.findMany({
+        select: {
+            attendeeCount: true,
+            id: true,
+            bookingStatus: true,
+            description: true,
+            createdAt: true,
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    username: true,
+                },
+            },
+            room: true,
+            startTime: true,
+            endTime: true,
+        },
+    });
+    return bookings.sort((a, b) => b.id - a.id);
 }
 
 async function GetBookingsByFilter(
@@ -107,8 +131,9 @@ async function UpdateBookingStatus(bookingId: number, status: BookingStatus) {
     return booking;
 }
 
-async function UpdateBooking(bookingId: number, updateData: UpdateBookingBody) {
-    
-}
+async function UpdateBooking(
+    bookingId: number,
+    updateData: UpdateBookingBody,
+) {}
 
 export default BookingsService;

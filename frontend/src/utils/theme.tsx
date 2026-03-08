@@ -1,6 +1,6 @@
 export const getLocalTheme = (): "light" | "dark" => {
     const theme = localStorage.getItem("theme");
-    return theme == "light" ? "light" : "dark";
+    return theme == "dark" ? "dark" : "light";
 };
 export const setLocalTheme = (theme: string) => {
     localStorage.setItem("theme", theme);

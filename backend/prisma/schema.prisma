@@ -44,6 +44,7 @@ model tblBookings {
   id            Int           @id @default(autoincrement())
   user          tblUsers      @relation(fields: [userId], references: [id])
   userId        Int
+  description String
   room          tblRooms      @relation(fields: [roomId], references: [id])
   roomId        Int
   attendeeCount Int //how many people will be attending to this meeting
@@ -56,6 +57,5 @@ model tblBookings {
 model tblRooms {
   id       Int           @id @default(autoincrement())
   name     String        @unique
-  capacity Int
   bookings tblBookings[]
 }

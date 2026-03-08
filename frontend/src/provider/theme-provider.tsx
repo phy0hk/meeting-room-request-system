@@ -15,6 +15,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
     };
     useEffect(() => {
         updateTheme();
+        //eslint-disable-next-line
     }, [theme]);
 
     return (

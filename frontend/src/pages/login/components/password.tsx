@@ -1,7 +1,9 @@
-const PasswordInput = () => {
+import { forwardRef } from "react";
+
+const PasswordInput = forwardRef<HTMLInputElement>((_, ref) => {
     return (
-        <div>
-            <label className="input validator">
+        <div className="w-full flex flex-col h-fit">
+            <label className="input validator w-full">
                 <svg
                     className="h-[1em] opacity-50"
                     xmlns="http://www.w3.org/2000/svg"
@@ -26,9 +28,12 @@ const PasswordInput = () => {
                 <input
                     type="password"
                     required
+                    ref={ref}
+                    className="w-full"
                     placeholder="Password"
-                    minLength={8}
-                    title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
+                    name="password"
+                    minLength={4}
+                    title="Must be more than 4 characters"
                 />
             </label>
             <p className="validator-hint hidden">
@@ -36,5 +41,5 @@ const PasswordInput = () => {
             </p>
         </div>
     );
-};
+});
 export default PasswordInput;

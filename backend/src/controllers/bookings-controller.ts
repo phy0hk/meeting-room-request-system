@@ -20,14 +20,8 @@ export const GetBookings = async (
     res: Response,
     next: NextFunction,
 ) => {
-    const query = req.query;
-    if (!query) {
-        const bookings = await BookingsService.db.GetAllBookings();
-        res.send({ status: "success", data: bookings });
-    } else {
-        const bookings = await BookingsService.db.GetBookingsByFilter(query);
-        res.send({ status: "success", data: bookings });
-    }
+    const bookings = await BookingsService.db.GetAllBookings();
+    res.send({ status: "success", data: bookings });
 };
 
 export async function CreateBooking(
@@ -48,6 +42,7 @@ export async function CreateBooking(
         attendeeCount: createBookingBody.attendeeCount,
         userId: user.id,
         createdAt: new Date(),
+        description: createBookingBody.description,
         startTime: new Date(createBookingBody.startTime),
         endTime: new Date(createBookingBody.endTime),
         bookingStatus: BookingStatus.CONFIRMED,
@@ -78,6 +73,7 @@ export async function CancelBooking(req: AuthenticatedRequest, res: Response) {
             Number(bookingId),
             BookingStatus.CANCELLED,
         );
+
         res.json({ status: "success", data: updatedBooking });
     } else {
         throw new ForbiddenError(

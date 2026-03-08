@@ -1,5 +1,5 @@
 import { prisma } from "@/config/prisma.config.js";
-import type { CreateUserBody, UpdateUserBody } from "@/types/users.js";
+import type { CreateUserBody, UpdateUserBody, User } from "@/types/users.js";
 import {
     BadRequestError,
     InternalServerError,
@@ -22,6 +22,7 @@ const UserService = {
         GetUserByFilter,
         DeactivateUserById,
         UpdateUserInfo,
+        GetAvailableUsers,
     },
     typeCheck: { CheckCreateUserBody },
 };
@@ -69,9 +70,35 @@ async function CreateNewUser({
     return user;
 }
 
-async function GetAllUsers(): Promise<tblUsers[] | undefined> {
-    const allUsers = await prisma.tblUsers.findMany();
-    return allUsers;
+async function GetAllUsers() {
+    const allUsers = await prisma.tblUsers.findMany({
+        select: {
+            id: true,
+            name: true,
+            bookings: true,
+            role: true,
+            status: true,
+            username: true,
+        },
+    });
+    return allUsers.sort((a, b) => a.id - b.id);
+}
+
+async function GetAvailableUsers(): Promise<User[] | undefined> {
+    const users = await prisma.tblUsers.findMany({
+        where: {
+            status: UserStatus.ACTIVE,
+        },
+        select: {
+            name: true,
+            id: true,
+            username: true,
+            role: true,
+            status: true,
+        },
+    });
+
+    return users.sort((a, b) => a.id - b.id);
 }
 
 async function GetUserByFilter(

@@ -87,6 +87,7 @@ export type TblUsersScalarFieldEnum = (typeof TblUsersScalarFieldEnum)[keyof typ
 export const TblBookingsScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  description: 'description',
   roomId: 'roomId',
   attendeeCount: 'attendeeCount',
   bookingStatus: 'bookingStatus',
@@ -100,8 +101,7 @@ export type TblBookingsScalarFieldEnum = (typeof TblBookingsScalarFieldEnum)[key
 
 export const TblRoomsScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  capacity: 'capacity'
+  name: 'name'
 } as const
 
 export type TblRoomsScalarFieldEnum = (typeof TblRoomsScalarFieldEnum)[keyof typeof TblRoomsScalarFieldEnum]

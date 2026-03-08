@@ -1,11 +1,7 @@
 import UserService from "@/services/users-service.js";
 import type { AuthenticatedRequest } from "@/types/auth.js";
 import type { CreateUserBody, UpdateUserBody } from "@/types/users.js";
-import {
-    BadRequestError,
-    ForbiddenError,
-    UnauthorizedError,
-} from "@/utils/http-error.js";
+import { BadRequestError, ForbiddenError } from "@/utils/http-error.js";
 import argon2 from "argon2";
 import type { NextFunction, Request, Response } from "express";
 import { Role } from "generated/prisma/enums.js";
@@ -31,8 +27,13 @@ export const CreateUser = async (req: Request, res: Response) => {
     res.status(201).send();
 };
 
-export const GetAllUsers = (_: Request, res: Response) => {
-    const users = UserService.db.GetAllUsers();
+export const GetAllUsers = async (_: Request, res: Response) => {
+    const users = await UserService.db.GetAllUsers();
+    res.json({ status: "success", data: users });
+};
+
+export const GetAvailableUsers = async (_: Request, res: Response) => {
+    const users = await UserService.db.GetAvailableUsers();
     res.json({ status: "success", data: users });
 };
 
@@ -70,6 +71,8 @@ export const UpdateUser = async (req: AuthenticatedRequest, res: Response) => {
             delete updateData[key as keyof UpdateUserBody],
     );
     const currentUser = req.user;
+
+    console.log(currentUser);
     if (updateData.password) {
         updateData.password = await argon2.hash(updateData.password);
     }

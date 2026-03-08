@@ -25,7 +25,6 @@ export const CheckDefaultRoom = async () => {
     const rooms = await RoomService.db.GetAllRooms();
     if (!rooms || rooms.length == 0) {
         RoomService.db.CreateRoom({
-            capacity: 10,
             name: "Meeting Room 1",
         });
     }

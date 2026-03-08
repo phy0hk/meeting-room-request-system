@@ -3,13 +3,16 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import ThemeProvider from "./provider/theme-provider.tsx";
-import QueryProvier from "./provider/queryprovier.tsx";
+import QueryProvier from "./provider/query-provier.tsx";
+import DialogProvider from "./provider/dialog-provider.tsx";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <ThemeProvider>
             <QueryProvier>
-                <App />
+                <DialogProvider>
+                    <App />
+                </DialogProvider>
             </QueryProvier>
         </ThemeProvider>
     </StrictMode>,

@@ -5,7 +5,7 @@ const NavButton = (props: { url: string; icon: ElementType; name: string }) => {
         <li>
             <NavLink
                 to={props.url}
-                data-tip="Bookings"
+                data-tip={props.name}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
             >
                 <props.icon className="my-1.5 inline-block size-4" />

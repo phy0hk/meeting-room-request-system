@@ -1,11 +1,22 @@
 import Navbar from "../common/navbar";
 import NavButton from "@/components/common/nav-button";
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { getRoutes } from "@/utils/page-routes";
+import { getCurrentUser } from "@/utils/current-user";
+import { UserRole } from "@/types/utils";
 const Drawer = ({ children }: { children: ReactNode }) => {
-    const Routes = getRoutes();
+    const currentUser = getCurrentUser();
+    const Routes = getRoutes().filter((route) => {
+        if (currentUser.role == route.role) return route;
+        else if (
+            currentUser.role == UserRole.ADMIN &&
+            route.role == UserRole.OWNER
+        )
+            return route;
+        else if (route.role == UserRole.USER) return route;
+    });
     return (
-        <div className="drawer lg:drawer-open">
+        <div className="drawer lg:drawer-open h-full">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
                 <Navbar />
@@ -23,6 +34,7 @@ const Drawer = ({ children }: { children: ReactNode }) => {
                     <ul className="menu w-full grow">
                         {Routes.map((item) => (
                             <NavButton
+                                key={item.id}
                                 url={item.url}
                                 icon={item.icon}
                                 name={item.name}

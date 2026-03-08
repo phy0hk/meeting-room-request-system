@@ -8,7 +8,7 @@ export const GetAllRooms = async (req: Request, res: Response) => {
 };
 export const CreateRoom = async (req: Request, res: Response) => {
     if (!req.body) throw new BadRequestError("Missing required field");
-    const { name, capacity } = req.body;
-    const newRoom = await RoomService.db.CreateRoom({ name, capacity });
+    const { name } = req.body;
+    const newRoom = await RoomService.db.CreateRoom({ name });
     res.json({ status: "success", data: newRoom });
 };

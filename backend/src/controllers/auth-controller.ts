@@ -5,7 +5,7 @@ import argon2 from "argon2";
 import UserService from "@/services/users-service.js";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "@/config/auth.js";
-import { UserStatus, type Role } from "generated/prisma/enums.js";
+import { Role, UserStatus } from "generated/prisma/enums.js";
 
 export const Login = async (
     req: Request,
@@ -51,5 +51,23 @@ export const Login = async (
     };
     res.cookie("auth_token", token, cookieOptions)
         .status(200)
-        .send({ status: "success", message: "Login successfully" });
+        .send({
+            status: "success",
+            message: "Login successfully",
+            data: {
+                id: user.id,
+                name: user.name,
+                username: user.username,
+                status: user.status,
+                role: user.role,
+            },
+        });
+};
+
+export const Logout = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
+    res.clearCookie("auth_token").json({ status: "success" });
 };

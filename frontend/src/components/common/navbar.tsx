@@ -1,12 +1,13 @@
 import { NavLink } from "react-router";
 import ThemeSwap from "./theme-swap";
+import { LogOut } from "lucide-react";
 
 const Navbar = ({ isInLogin = false }: { isInLogin?: boolean }) => {
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="flex-none">
                 <label
-                    className={`btn btn-square btn-ghost drawer-button ${isInLogin ? "hidden" : ""}`}
+                    className={`btn btn-square relative btn-ghost drawer-button ${isInLogin ? "hidden" : ""}`}
                     htmlFor="my-drawer-4"
                     aria-label="open sidebar"
                 >
@@ -14,7 +15,7 @@ const Navbar = ({ isInLogin = false }: { isInLogin?: boolean }) => {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        className="inline-block h-5 w-5 stroke-current"
+                        className="inline-block h-5 w-5 stroke-current absolute"
                     >
                         {" "}
                         <path
@@ -33,7 +34,21 @@ const Navbar = ({ isInLogin = false }: { isInLogin?: boolean }) => {
                 >
                     Meeting Room Booking System
                 </NavLink>
-                <ThemeSwap />
+                <div className="flex items-center gap-4">
+                    <ThemeSwap />
+                    <button
+                        className="btn"
+                        onClick={() =>
+                            (
+                                document.getElementById(
+                                    "logout_modal",
+                                ) as HTMLDialogElement
+                            )?.showModal()
+                        }
+                    >
+                        <LogOut />
+                    </button>
+                </div>
             </div>
         </div>
     );
