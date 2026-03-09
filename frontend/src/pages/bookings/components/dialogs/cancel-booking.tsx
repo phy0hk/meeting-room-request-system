@@ -1,8 +1,18 @@
+import api from "@/config/default-api";
+import type { BookingData } from "@/types/bookings";
+
 const CancelBookingDialog = ({
-    handleCancelBooking,
+    refetch,
+    currentSelected,
 }: {
-    handleCancelBooking: () => void;
+    refetch: () => void;
+    currentSelected?: BookingData;
 }) => {
+    const handleCancelBooking = () => {
+        api.delete("/api/bookings?bookingId=" + currentSelected?.id).then(() =>
+            refetch(),
+        );
+    };
     return (
         <dialog id="cancel_booking" className="modal">
             <div className="modal-box">

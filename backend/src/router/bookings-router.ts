@@ -3,8 +3,8 @@ import {
     CreateBooking,
     GetBookings,
     UpdateBooking,
-} from "@/controllers/bookings-controller.js";
-import { AuthorizeAllUserRoles } from "@/middlewares/auth.js";
+} from "../controllers/bookings-controller.js";
+import { AuthorizeAllUserRoles } from "../middlewares/auth.js";
 import express from "express";
 
 const BookingsRouter = express.Router();

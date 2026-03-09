@@ -4,16 +4,15 @@ import {
     GetAllUsers,
     GetAvailableUsers,
     UpdateUser,
-} from "@/controllers/user-controller.js";
+} from "../controllers/user-controller.js";
 import {
-    AuthorizeAdminAndOwner,
     AuthorizeAdminOnly,
     AuthorizeAllUserRoles,
-} from "@/middlewares/auth.js";
+} from "../middlewares/auth.js";
 import express from "express";
 const UserRouter = express.Router();
 
-UserRouter.get("/", AuthorizeAdminAndOwner, GetAllUsers);
+UserRouter.get("/", AuthorizeAllUserRoles, GetAllUsers);
 UserRouter.get("/available", GetAvailableUsers);
 UserRouter.post("/", AuthorizeAdminOnly, CreateUser);
 UserRouter.patch("/", AuthorizeAllUserRoles, UpdateUser);

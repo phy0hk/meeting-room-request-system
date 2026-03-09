@@ -1,10 +1,28 @@
+import api from "@/config/default-api";
+import useDialog from "@/hooks/useDialog";
 import type { SubmitEvent } from "react";
 
-const CreateUserDialog = ({
-    handleOnSubmit,
-}: {
-    handleOnSubmit: (e: SubmitEvent<HTMLFormElement>) => void;
-}) => {
+const CreateUserDialog = ({ refetch }: { refetch: () => void }) => {
+    const { openErrorDialog } = useDialog();
+    const handleOnSubmit = (e: SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const name = formData.get("name");
+        const username = formData.get("username");
+        const password = formData.get("password");
+        const role = formData.get("role");
+        api.post("/api/users", { name, username, role, password })
+            .then(() => {
+                refetch();
+                (
+                    document.getElementById("create_user") as HTMLDialogElement
+                )?.close();
+                e.currentTarget.reset();
+            })
+            .catch((err) => {
+                openErrorDialog(err.response?.data.message);
+            });
+    };
     return (
         <dialog id="create_user" className="modal">
             <div className="modal-box">

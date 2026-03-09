@@ -1,6 +1,6 @@
-import RoomService from "@/services/rooms-service.js";
-import UserService from "@/services/users-service.js";
-import { Role, UserStatus } from "generated/prisma/enums.js";
+import RoomService from "../services/rooms-service.js";
+import UserService from "../services/users-service.js";
+import { Role, UserStatus } from "../../generated/prisma/enums.js";
 
 export const Initiallize = () => {
     CheckDefaultUser();
@@ -14,9 +14,23 @@ export const CheckDefaultUser = async () => {
     ) {
         UserService.db.CreateNewUser({
             name: "Admin",
-            password: "defaultAdmin",
+            password: "admin",
             role: Role.ADMIN,
             username: "admin",
+            status: UserStatus.ACTIVE,
+        });
+        UserService.db.CreateNewUser({
+            name: "User",
+            password: "user",
+            role: Role.ADMIN,
+            username: "user",
+            status: UserStatus.ACTIVE,
+        });
+        UserService.db.CreateNewUser({
+            name: "Owner",
+            password: "Owner",
+            role: Role.ADMIN,
+            username: "owner",
             status: UserStatus.ACTIVE,
         });
     }

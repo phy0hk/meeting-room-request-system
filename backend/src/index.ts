@@ -1,11 +1,11 @@
 import express from "express";
 import "dotenv/config";
-import ApiRouter from "@/router/api-router.js";
 import { ErrorHandler } from "./middlewares/error-handler.js";
 import { Initiallize } from "./utils/initializer.js";
 import cookieParser from "cookie-parser";
 import cors from "./middlewares/cors.js";
 import StartSchedular from "./utils/schedular.js";
+import ApiRouter from "./router/api-router.js";
 
 const server = express();
 const PORT = process.env.PORT || 3000;

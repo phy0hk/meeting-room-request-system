@@ -1,4 +1,4 @@
-import BookingsRouter from "@/router/bookings-router.js";
+import BookingsRouter from "../router/bookings-router.js";
 import express from "express";
 import UserRouter from "./users-router.js";
 import AuthRouter from "./auth-router.js";

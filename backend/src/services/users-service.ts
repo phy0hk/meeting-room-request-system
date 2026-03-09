@@ -1,18 +1,14 @@
-import { prisma } from "@/config/prisma.config.js";
-import type { CreateUserBody, UpdateUserBody, User } from "@/types/users.js";
-import {
-    BadRequestError,
-    InternalServerError,
-    NotFoundError,
-} from "@/utils/http-error.js";
+import { prisma } from "../config/prisma.config.js";
+import type { CreateUserBody, UpdateUserBody, User } from "../types/users.js";
+import { BadRequestError, NotFoundError } from "../utils/http-error.js";
 import argon2 from "argon2";
 import {
     BookingStatus,
     Role,
     UserStatus,
     type tblUsers,
-} from "generated/prisma/client.js";
-import type { tblUsersFindManyArgs } from "generated/prisma/models.js";
+} from "../../generated/prisma/client.js";
+import type { tblUsersFindManyArgs } from "../../generated/prisma/models.js";
 
 const UserService = {
     db: {
@@ -150,7 +146,13 @@ async function UpdateUserInfo(
         where: {
             username,
         },
-        data: updateUserInfo,
+        data: {
+            ...(updateUserInfo.name && { name: updateUserInfo.name }),
+            ...(updateUserInfo.role && { role: updateUserInfo.role }),
+            ...(updateUserInfo.password && {
+                password: updateUserInfo.password,
+            }),
+        },
     });
     return updated;
 }

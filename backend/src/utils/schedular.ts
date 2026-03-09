@@ -1,5 +1,5 @@
-import BookingsService from "@/services/bookings-service.js";
-import { BookingStatus } from "generated/prisma/enums.js";
+import BookingsService from "../services/bookings-service.js";
+import { BookingStatus } from "../../generated/prisma/enums.js";
 
 const StartSchedular = () => {
     setInterval(() => {

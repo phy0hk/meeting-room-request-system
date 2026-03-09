@@ -1,6 +1,6 @@
 import type { Request } from "express";
-import type { tblUsers } from "generated/prisma/client.js";
-import type { Role } from "generated/prisma/enums.js";
+import type { tblUsers } from "../../generated/prisma/client.js";
+import type { Role } from "../../generated/prisma/enums.js";
 
 export interface LoginBody {
     username: string;

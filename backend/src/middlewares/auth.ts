@@ -1,10 +1,10 @@
-import { SECRET_KEY } from "@/config/auth.js";
-import UserService from "@/services/users-service.js";
-import type { AuthenticatedRequest, LoginTokenPayload } from "@/types/auth.js";
-import { UnauthorizedError } from "@/utils/http-error.js";
+import { SECRET_KEY } from "../config/auth.js";
+import UserService from "../services/users-service.js";
+import type { AuthenticatedRequest, LoginTokenPayload } from "../types/auth.js";
+import { UnauthorizedError } from "../utils/http-error.js";
 import type { NextFunction, Request, Response } from "express";
-import type { tblUsers } from "generated/prisma/browser.js";
-import { Role, UserStatus } from "generated/prisma/enums.js";
+import type { tblUsers } from "../../generated/prisma/client.js";
+import { Role, UserStatus } from "../../generated/prisma/enums.js";
 import jwt from "jsonwebtoken";
 
 //Allow all authenticated users

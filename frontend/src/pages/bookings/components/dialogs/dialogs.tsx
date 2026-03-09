@@ -1,17 +1,20 @@
+import type { BookingData } from "@/types/bookings";
 import CancelBookingDialog from "./cancel-booking";
 import CreateBookingDialog from "./create-booking";
+import UpdateBooking from "./updateBooking";
 
 const BookingsDialog = ({
-    cancelBooking,
     refetch,
+    selected,
 }: {
-    cancelBooking: () => void;
     refetch: () => void;
+    selected?: BookingData;
 }) => {
     return (
         <>
-            <CancelBookingDialog handleCancelBooking={cancelBooking} />
+            <CancelBookingDialog refetch={refetch} currentSelected={selected} />
             <CreateBookingDialog refetch={refetch} />
+            <UpdateBooking refetch={refetch} currentSelected={selected} />
         </>
     );
 };

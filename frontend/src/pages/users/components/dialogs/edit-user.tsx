@@ -27,7 +27,12 @@ const UpdateUserDialog = ({
             password,
             role,
         })
-            .then(() => refetch())
+            .then(() => {
+                refetch();
+                (
+                    document.getElementById("edit_user") as HTMLDialogElement
+                ).close();
+            })
             .catch((err) => openErrorDialog(err.response.data.message));
     };
     useEffect(() => {

@@ -1,8 +1,8 @@
 services:
+    # Database
     postgres:
         image: postgres:latest
         container_name: postgres
-        volumes: []
         env_file:
             - .env
         environment:
@@ -11,6 +11,8 @@ services:
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         ports:
             - "5432:5432"
+
+    # Database GUI
     pgadmin:
         image: dpage/pgadmin4
         env_file:
@@ -18,13 +20,42 @@ services:
         environment:
             PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
             PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-            POSTGRES_HOST: postgreshost
-            POSTGRES_USER: ${POSTGRES_USER}
-            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-            POSTGRES_DB: ${POSTGRES_DB}
-            PGADMIN_CONFIG_SERVER_MODE: False
-            PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: False
+            PGADMIN_CONFIG_SERVER_MODE: "False"
         ports:
-            - ${PGADMIN_PORT}:80
-        user: root
-        volumes: []
+            - "${PGADMIN_PORT}:80"
+        depends_on:
+            - postgres
+
+    # Backend (Node.js + Prisma)
+    api-server:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        env_file:
+            - .env
+        # Use the service name 'postgres' as the host in your DATABASE_URL
+        environment:
+            - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+            - PORT=3000
+            - HOSTNAME=0.0.0.0
+        depends_on:
+            - postgres
+
+    # Frontend (React + DaisyUI)
+    web-client:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        depends_on:
+            - api-server
+
+    # Nginx Gateway (The entry point)
+    gateway:
+        image: nginx:alpine
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        depends_on:
+            - web-client
+            - api-server

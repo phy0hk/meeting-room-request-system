@@ -1,6 +1,7 @@
-import { BookingStatus } from "@/types/bookings";
+import { BookingStatus, type BookingData } from "@/types/bookings";
 import { UserRole } from "@/types/utils";
 import { getCurrentUser } from "@/utils/current-user";
+import { Edit, X } from "lucide-react";
 import { type Dispatch, type SetStateAction } from "react";
 
 const BookingsTable = ({
@@ -8,7 +9,7 @@ const BookingsTable = ({
     currentSelected,
 }: {
     data: any[] | undefined;
-    currentSelected: Dispatch<SetStateAction<number>>;
+    currentSelected: Dispatch<SetStateAction<BookingData | undefined>>;
 }) => {
     const currentUser = getCurrentUser();
 
@@ -47,11 +48,32 @@ const BookingsTable = ({
                                     {new Date(booking.endTime).toLocaleString()}
                                 </td>
                                 <td>{booking.bookingStatus}</td>
-                                <td>
+                                <td className="flex flex-row gap-2">
+                                    <button
+                                        className="btn btn-primary btn-sm"
+                                        disabled={
+                                            new Date(
+                                                booking.startTime,
+                                            ).getTime() <
+                                                new Date().getTime() ||
+                                            booking.BookingStatus !==
+                                                BookingStatus.CONFIRMED
+                                        }
+                                        onClick={() => {
+                                            currentSelected(booking);
+                                            (
+                                                document.getElementById(
+                                                    "edit_booking",
+                                                ) as HTMLDialogElement
+                                            ).showModal();
+                                        }}
+                                    >
+                                        <Edit />
+                                    </button>
                                     <button
                                         className="btn btn-error btn-sm"
                                         onClick={() => {
-                                            currentSelected(booking.id);
+                                            currentSelected(booking);
                                             (
                                                 document.getElementById(
                                                     "cancel_booking",
@@ -69,8 +91,7 @@ const BookingsTable = ({
                                                 BookingStatus.CONFIRMED
                                         }
                                     >
-                                        {/*<X className="w-full h-full" />*/}
-                                        Cancel
+                                        <X />
                                     </button>
                                 </td>
                             </tr>

@@ -1,4 +1,4 @@
-import type { LoginBody } from "@/types/auth.js";
+import type { LoginBody } from "../types/auth.js";
 
 const AuthService = { typeCheck: { LoginBodyCheck } };
 

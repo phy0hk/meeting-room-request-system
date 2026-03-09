@@ -1,5 +1,5 @@
-import RoomService from "@/services/rooms-service.js";
-import { BadRequestError } from "@/utils/http-error.js";
+import RoomService from "../services/rooms-service.js";
+import { BadRequestError } from "../utils/http-error.js";
 import type { Request, Response } from "express";
 
 export const GetAllRooms = async (req: Request, res: Response) => {

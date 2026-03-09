@@ -1,8 +1,8 @@
-import { CreateRoom, GetAllRooms } from "@/controllers/rooms-controller.js";
+import { CreateRoom, GetAllRooms } from "../controllers/rooms-controller.js";
 import {
     AuthorizeAdminOnly,
     AuthorizeAllUserRoles,
-} from "@/middlewares/auth.js";
+} from "../middlewares/auth.js";
 import express from "express";
 const RoomsRouter = express.Router();
 

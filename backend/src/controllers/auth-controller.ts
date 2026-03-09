@@ -1,11 +1,11 @@
-import AuthService from "@/services/auth-service.js";
-import { BadRequestError, UnauthorizedError } from "@/utils/http-error.js";
+import AuthService from "../services/auth-service.js";
+import { BadRequestError, UnauthorizedError } from "../utils/http-error.js";
 import type { CookieOptions, NextFunction, Request, Response } from "express";
 import argon2 from "argon2";
-import UserService from "@/services/users-service.js";
+import UserService from "../services/users-service.js";
 import jwt from "jsonwebtoken";
-import { SECRET_KEY } from "@/config/auth.js";
-import { Role, UserStatus } from "generated/prisma/enums.js";
+import { SECRET_KEY } from "../config/auth.js";
+import { UserStatus } from "../../generated/prisma/enums.js";
 
 export const Login = async (
     req: Request,

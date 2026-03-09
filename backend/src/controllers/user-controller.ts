@@ -1,10 +1,10 @@
-import UserService from "@/services/users-service.js";
-import type { AuthenticatedRequest } from "@/types/auth.js";
-import type { CreateUserBody, UpdateUserBody } from "@/types/users.js";
-import { BadRequestError, ForbiddenError } from "@/utils/http-error.js";
+import UserService from "../services/users-service.js";
+import type { AuthenticatedRequest } from "../types/auth.js";
+import type { CreateUserBody, UpdateUserBody } from "../types/users.js";
+import { BadRequestError, ForbiddenError } from "../utils/http-error.js";
 import argon2 from "argon2";
-import type { NextFunction, Request, Response } from "express";
-import { Role } from "generated/prisma/enums.js";
+import type { Request, Response } from "express";
+import { Role } from "../../generated/prisma/enums.js";
 
 export const CreateUser = async (req: Request, res: Response) => {
     if (!req.body) {
@@ -72,17 +72,28 @@ export const UpdateUser = async (req: AuthenticatedRequest, res: Response) => {
     );
     const currentUser = req.user;
 
-    console.log(currentUser);
-    if (updateData.password) {
+    if (
+        updateData.password !== "" &&
+        updateData.password?.trim() !== "" &&
+        updateData.password !== undefined
+    ) {
         updateData.password = await argon2.hash(updateData.password);
     }
     if (!currentUser) throw new BadRequestError("Missing user info in request");
     if (currentUser.username === username || currentUser.role == Role.ADMIN) {
-        const updatedUser = await UserService.db.UpdateUserInfo(
-            updateData,
-            username,
-        );
-        res.json({ status: "success", data: updatedUser });
+        if (currentUser.role == Role.ADMIN) {
+            const updatedUser = await UserService.db.UpdateUserInfo(
+                updateData,
+                username,
+            );
+            res.json({ status: "success", data: updatedUser });
+        } else {
+            const updateUser = await UserService.db.UpdateUserInfo(
+                { ...updateData, role: currentUser.role },
+                username,
+            );
+            res.json({ status: "success", data: updateUser });
+        }
     } else {
         throw new ForbiddenError("You are not allowed to update other user");
     }

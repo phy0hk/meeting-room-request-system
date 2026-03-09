@@ -1,5 +1,5 @@
-import type { tblUsers } from "generated/prisma/client.js";
-import type { Role, UserStatus } from "generated/prisma/enums.js";
+import type { tblUsers } from "../../generated/prisma/client.js";
+import type { Role, UserStatus } from "../../generated/prisma/enums.js";
 
 export interface CreateUserBody {
     name: string;

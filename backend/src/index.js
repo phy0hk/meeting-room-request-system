@@ -1,0 +1,23 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+require("dotenv/config");
+var api_router_js_1 = require("@/router/api-router.js");
+var error_handler_js_1 = require("./middlewares/error-handler.js");
+var initializer_js_1 = require("./utils/initializer.js");
+var cookie_parser_1 = require("cookie-parser");
+var cors_js_1 = require("./middlewares/cors.js");
+var schedular_js_1 = require("./utils/schedular.js");
+var server = (0, express_1.default)();
+var PORT = process.env.PORT || 3000;
+var HOSTNAME = process.env.HOSTNAME || "127.0.0.1";
+(0, initializer_js_1.Initiallize)();
+(0, schedular_js_1.default)();
+server.use(cors_js_1.default);
+server.use(express_1.default.json());
+server.use((0, cookie_parser_1.default)());
+server.use("/api", api_router_js_1.default);
+server.use(error_handler_js_1.ErrorHandler);
+server.listen(Number(PORT), HOSTNAME, function () {
+    console.log("Server is listen at ".concat(HOSTNAME, ":").concat(PORT));
+});

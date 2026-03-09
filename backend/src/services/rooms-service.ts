@@ -1,6 +1,6 @@
-import { prisma } from "@/config/prisma.config.js";
-import type { tblRooms } from "generated/prisma/client.js";
-import type { tblRoomsFindManyArgs } from "generated/prisma/models.js";
+import { prisma } from "../config/prisma.config.js";
+import type { tblRooms } from "../../generated/prisma/client.js";
+import type { tblRoomsFindManyArgs } from "../../generated/prisma/models.js";
 
 const RoomService = {
     db: {

@@ -1,19 +1,22 @@
-import BookingsService from "@/services/bookings-service.js";
-import type { AuthenticatedRequest } from "@/types/auth.js";
-import type { CreateBookingBody } from "@/types/bookings.js";
+import BookingsService from "../services/bookings-service.js";
+import type { AuthenticatedRequest } from "../types/auth.js";
+import type {
+    CreateBookingBody,
+    UpdateBookingBody,
+} from "../types/bookings.js";
 import {
     BadRequestError,
     ForbiddenError,
     InternalServerError,
     UnauthorizedError,
-} from "@/utils/http-error.js";
+} from "../utils/http-error.js";
 
 import type { NextFunction, Request, Response } from "express";
 import {
     BookingStatus,
     Role,
     type tblBookings,
-} from "generated/prisma/browser.js";
+} from "../../generated/prisma/client.js";
 
 export const GetBookings = async (
     req: Request,
@@ -82,7 +85,46 @@ export async function CancelBooking(req: AuthenticatedRequest, res: Response) {
     }
 }
 
-export async function UpdateBooking(req: AuthenticatedRequest, res: Response) {
-    if (!req.body) throw new BadRequestError("missing required body");
-    const body = req.body;
+export async function UpdateBooking(
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction,
+) {
+    try {
+        if (!req.body) throw new BadRequestError("Missing required body");
+
+        // validate the incoming body
+        const updateData = BookingsService.typeCheck.CheckUpdateBookingBody(
+            req.body,
+        );
+
+        //convert date strings to Date objects (if they exist)
+        const formattedData: UpdateBookingBody = {
+            ...updateData,
+            startTime: updateData.startTime
+                ? new Date(updateData.startTime)
+                : undefined,
+            endTime: updateData.endTime
+                ? new Date(updateData.endTime)
+                : undefined,
+        };
+
+        //call the service logic (the function we wrote in the previous step)
+        const updatedBooking = await BookingsService.db.UpdateBooking(
+            updateData.bookingId,
+            formattedData,
+        );
+
+        if (!updatedBooking) {
+            throw new InternalServerError("Failed to update booking");
+        }
+
+        //return success
+        res.status(200).json({
+            status: "success",
+            data: updatedBooking,
+        });
+    } catch (error) {
+        next(error);
+    }
 }
