@@ -4,8 +4,8 @@ A robust full-stack solution for managing shared workspace resources, featuring 
 
 ## Deployment
 
-- **Live Application:** [Insert your Vercel/Render/Railway URL]
-- **Backend API:** [Insert your API URL]
+- **Live Application:** https://meeting-room-request-system.onrender.com
+- **Backend API:** https://meeting-room-request-system-0awa.onrender.com
 
 ## Technical Stack
 
