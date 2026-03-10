@@ -76,6 +76,7 @@ Permissions are enforced at the **Middleware level** on the server. Even if the 
 ```bash
 git clone https://github.com/phy0hk/meeting-room-request-system
 cd meeting-room-request-system
+cp .env.example .env
 docker compose --build -d
 ```
 
@@ -86,6 +87,7 @@ docker compose --build -d
 ```bash
 git clone https://github.com/phy0hk/meeting-room-request-system
 cd meeting-room-request-system/backend
+cp .env.example .env
 ```
 
 2 . **Deployment**
