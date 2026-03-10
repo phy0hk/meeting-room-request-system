@@ -10,13 +10,19 @@ import jwt from "jsonwebtoken";
 //Allow all authenticated users
 export const Authenticate = async (req: AuthenticatedRequest) => {
     const cookies = req.cookies;
+    let token = "";
     if (!cookies) {
         throw new UnauthorizedError("Invalid Authentication");
     }
     if (!cookies.auth_token) {
-        throw new UnauthorizedError("Missing Token");
+        if (!req.headers.authorization) {
+            throw new UnauthorizedError("Missing Token");
+        }
+        token = req.headers.authorization;
+    } else {
+        token = cookies.auth_token;
     }
-    const userInfo = jwt.verify(cookies.auth_token, SECRET_KEY);
+    const userInfo = jwt.verify(token, SECRET_KEY);
     if (!userInfo) {
         throw new UnauthorizedError("Invalid Token");
     }
