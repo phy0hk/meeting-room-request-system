@@ -7,7 +7,7 @@ import type { User } from "@/types/users";
 import useDialog from "@/hooks/useDialog";
 import Dialog from "@/components/dialog/dialog";
 import { useNavigate } from "react-router";
-import { setCurrentUser } from "@/utils/current-user";
+import { setCurrentUser, setToken } from "@/utils/current-user";
 const LoginPage = () => {
     const [selectedUser, setSelectedUser] = useState<User>();
     const { openErrorDialog } = useDialog();
@@ -22,6 +22,7 @@ const LoginPage = () => {
             .then((res) => {
                 if (res.status == 200) navigate("/");
                 setCurrentUser(res.data.data);
+                setToken(res.data.token);
             })
             .catch((error) => openErrorDialog(error.response.data.message));
     };
