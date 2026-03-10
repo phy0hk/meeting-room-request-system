@@ -1,7 +1,10 @@
 import type { RequestHandler } from "express";
 
 const cors: RequestHandler = (req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+        "Access-Control-Allow-Origin",
+        "https://meeting-room-request-system.onrender.com",
+    );
     res.setHeader(
         "Access-Control-Allow-Methods",
         "GET, POST, PUT, DELETE, OPTIONS",
