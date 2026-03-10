@@ -1,8 +1,10 @@
+import { getToken } from "@/utils/current-user";
 import axios from "axios";
 const api = axios.create({
     baseURL: "",
     headers: {
         "Content-Type": "application/json",
+        Authorization: getToken() || "",
     },
 });
 api.interceptors.response.use(
