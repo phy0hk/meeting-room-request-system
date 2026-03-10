@@ -19,3 +19,10 @@ export const getCurrentUser = () => {
 export const setCurrentUser = (user: User) => {
     localStorage.setItem("userInfo", JSON.stringify(user));
 };
+
+export const setToken = (token: string) => {
+    localStorage.setItem("token", token);
+};
+export const getToken = (): string | null => {
+    return localStorage.getItem("token");
+};
