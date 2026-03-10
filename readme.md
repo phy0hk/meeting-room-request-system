@@ -8,12 +8,12 @@ This is designed to look impressive to an interviewer by highlighting your **log
 
 A robust full-stack solution for managing shared workspace resources, featuring a Node.js REST API and a role-based frontend.
 
-## 🚀 Deployment
+## Deployment
 
 - **Live Application:** [Insert your Vercel/Render/Railway URL]
 - **Backend API:** [Insert your API URL]
 
-## 🛠️ Technical Stack
+## Technical Stack
 
 - **Backend:** Node.js with Express
 - **Database:** PostgreSQL
@@ -23,7 +23,7 @@ A robust full-stack solution for managing shared workspace resources, featuring 
 
 ---
 
-## 🧠 Core Logic & Assumptions
+## Core Logic & Assumptions
 
 ### 1. Overlap Detection Logic
 
@@ -52,13 +52,13 @@ Permissions are enforced at the **Middleware level** on the server. Even if the 
 
 ## 📋 API Reference (Summary)
 
-| Method   | Endpoint            | Access              | Description                               |
-| -------- | ------------------- | ------------------- | ----------------------------------------- |
-| `POST`   | `/api/bookings`     | All                 | Create a booking (includes overlap check) |
-| `GET`    | `/api/bookings`     | All                 | View all scheduled room time              |
-| `DELETE` | `/api/bookings/:id` | Owner/Admin/Creator | Remove a specific booking                 |
-| `GET`    | `/api/summary`      | Owner/Admin         | View total bookings grouped by user       |
-| `POST`   | `/api/users`        | Admin               | Register new users/assign roles           |
+| Method   | Endpoint                     | Access              | Description                               |
+| -------- | ---------------------------- | ------------------- | ----------------------------------------- |
+| `POST`   | `/api/bookings`              | All                 | Create a booking (includes overlap check) |
+| `GET`    | `/api/bookings`              | All                 | View all scheduled room time              |
+| `DELETE` | `/api/bookings?bookingId=:id` | Owner/Admin/Creator | Remove a specific booking                 |
+| `GET`    | `/api/summary`               | Owner/Admin         | View total bookings grouped by user       |
+| `POST`   | `/api/users`                 | Admin               | Register new users/assign roles           |
 
 ---
 
@@ -97,5 +97,3 @@ npm run dev
 ```
 
 ---
-
-**Would you like me to add a section specifically explaining the Prisma schema or the Docker configuration we discussed earlier?**
