@@ -1,9 +1,3 @@
-Since I have the context of your **Node.js, Prisma, and PostgreSQL** setup from our recent work, I’ve put together a professional, clean `README.md`.
-
-This is designed to look impressive to an interviewer by highlighting your **logic** and **architectural choices**—helping to justify the extra time you took to finish it.
-
----
-
 # Meeting Room Booking System
 
 A robust full-stack solution for managing shared workspace resources, featuring a Node.js REST API and a role-based frontend.
@@ -18,7 +12,7 @@ A robust full-stack solution for managing shared workspace resources, featuring 
 - **Backend:** Node.js with Express
 - **Database:** PostgreSQL
 - **ORM:** Prisma
-- **Frontend:** [React/Jetpack Compose - please specify if different]
+- **Frontend:** React Js with Tailwind CSS and Daisy UI as components library
 - **Environment:** Containerized with Docker support
 
 ---
@@ -27,12 +21,13 @@ A robust full-stack solution for managing shared workspace resources, featuring 
 
 ### 1. Overlap Detection Logic
 
-To ensure data integrity, I implemented an overlap validation algorithm. A booking request is rejected if it conflicts with an existing entry.
-**Logic:** Two bookings ($S_1, E_1$) and ($S_2, E_2$) overlap if:
+To prevent logistical friction, the system enforces a mandatory 10-minute buffer between every booking. Back-to-back bookings (e.g., 10:00 AM to 11:00 AM and 11:00 AM to 12:00 PM) are not allowed.
 
-$$(S_1 < E_2) \text{ AND } (E_1 > S_2)$$
+Logic: A new booking (S_new,E_new) is only valid if it does not conflict with an existing booking (S_ext,E_ext) plus the 10-minute transition window.
+A conflict is detected if:
 
-- **Back-to-Back Bookings:** I have defined these as **valid**. If a meeting ends at 10:00 AM and another starts at 10:00 AM, they are permitted.
+$$(S_1 < E_2 + 10 mins) \text{ AND } (E_1 > S_2 - 10 mins)$$
+
 - **Time Handling:** All timestamps are stored and compared in **UTC** to prevent timezone-related scheduling errors.
 
 ### 2. Role-Based Access Control (RBAC)
@@ -45,55 +40,97 @@ Permissions are enforced at the **Middleware level** on the server. Even if the 
 
 ### 3. Data Integrity
 
-- **User Deletion:** I implemented a **Cascade Delete** strategy. When an Admin removes a user, all associated bookings are purged to maintain database cleanliness.
-- **Validation:** Start times must strictly precede end times, enforced via backend validation logic.
+- **User Deletion:** Instead of purging records, the Admin updates the user status from **ACTIVE** to **INACTIVE**.
+- **Automated Cleanup:** When a user is deactivated, the system automatically transitions all of that user's **CONFIRMED** bookings to **CANCELLED** status.
+- **Validation:** Server-side checks ensure that **startTime** is always before **endTime** and that **INACTIVE** users cannot perform any new actions.
 
 ---
 
-## 📋 API Reference (Summary)
+## API Reference (Summary)
 
-| Method   | Endpoint                     | Access              | Description                               |
-| -------- | ---------------------------- | ------------------- | ----------------------------------------- |
-| `POST`   | `/api/bookings`              | All                 | Create a booking (includes overlap check) |
-| `GET`    | `/api/bookings`              | All                 | View all scheduled room time              |
-| `DELETE` | `/api/bookings?bookingId=:id` | Owner/Admin/Creator | Remove a specific booking                 |
-| `GET`    | `/api/summary`               | Owner/Admin         | View total bookings grouped by user       |
-| `POST`   | `/api/users`                 | Admin               | Register new users/assign roles           |
+| Method   | Endpoint                      | Access                | Description                                                                      |
+| -------- | ----------------------------- | --------------------- | -------------------------------------------------------------------------------- |
+| `POST`   | `/api/auth`                   | Public                | Authenticates user and initializes session.                                      |
+| `GET`    | `/api/auth/logout`            | All                   | Terminates session and clears the authentication cookie.                         |
+| `GET`    | `/api/auth/check`             | All                   | Validates the current session token integrity.                                   |
+| `GET`    | `/api/users`                  | All                   | Retrieves a list of all system users.                                            |
+| `GET`    | `/api/users/available`        | All                   | Fetches a filtered list of users with `ACTIVE` status.                           |
+| `POST`   | `/api/users`                  | Admin                 | Registers a new user and assigns system roles.                                   |
+| `PATCH`  | `/api/users`                  | Admin, Creator        | Updates user profile details or account metadata.                                |
+| `DELETE` | `/api/users?userId=:id`       | Admin                 | **Soft Delete:** Deactivates account and cancels all associated future bookings. |
+| `GET`    | `/api/bookings`               | All                   | Lists bookings (Defaults to user-specific; Owner/Admin see all).                 |
+| `POST`   | `/api/bookings`               | All                   | Schedules a new reservation (Enforces 10-min buffer & state checks).             |
+| `PATCH`  | `/api/bookings`               | Admin, Owner, Creator | Modifies details of an existing `CONFIRMED` booking.                             |
+| `DELETE` | `/api/bookings?bookingId=:id` | Admin, Owner, Creator | Updates booking status to `CANCELLED`.                                           |
+| `GET`    | `/api/rooms`                  | All                   | Lists all meeting rooms available in the system.                                 |
+| `POST`   | `/api/rooms`                  | Admin                 | Configures and adds a new room to the inventory.                                 |
 
 ---
 
-## ⚙️ Local Setup
+# Local Setup
 
-1. **Clone and Install:**
+## Full deployment
+
+**Clone and Run:**
 
 ```bash
-git clone [your-repo-link]
-cd [repo-name]
+git clone https://github.com/phy0hk/meeting-room-request-system
+cd meeting-room-request-system
+docker compose --build -d
+```
+
+## Backend deployment
+
+1 . **Clone and Run**
+
+```bash
+git clone https://github.com/phy0hk/meeting-room-request-system
+cd meeting-room-request-system/backend
+```
+
+2 . **Deployment**
+
+#### Manual
+
+```bash
 npm install
-
+# Migrate database if it's not already done
+npx prisma migrate depoly
+npx prisma generate
+npm run build
+npm start
 ```
 
-2. **Database Migration:**
+#### With docker
 
 ```bash
-npx prisma migrate dev
-
+docker build -t meeting-backend:latest .
+docker run -d --name meeting-backend -p 3000:3000 meeting-backend:latest
 ```
 
-3. **Environment Variables:**
-   Create a `.env` file with:
+## Frontend deployment
 
-```env
-DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
-PORT=3000
-
-```
-
-4. **Run:**
+1 . **Clone and Run**
 
 ```bash
-npm run dev
+git clone https://github.com/phy0hk/meeting-room-request-system
+cd meeting-room-request-system/frontend
+```
 
+2 . **Deployment**
+
+#### Manual
+
+```bash
+npm install
+npm run preview
+```
+
+### With docker
+
+```bash
+docker build -t meeting-frontend:latest .
+docker run -d --name meeting-frontend -p 5000:5000 meeting-frontend:latest
 ```
 
 ---
