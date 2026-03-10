@@ -61,6 +61,7 @@ export const Login = async (
                 status: user.status,
                 role: user.role,
             },
+            token,
         });
 };
 
