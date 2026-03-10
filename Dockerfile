@@ -36,7 +36,7 @@ COPY --from=frontend-builder /app/dist /usr/share/nginx/html
 
 # 3. Copy Nginx Configuration
 # Note: Alpine Nginx looks in /etc/nginx/http.d/ by default
-COPY default.conf /etc/nginx/http.d/default.conf
+COPY nginx.conf /etc/nginx/http.d/default.conf
 
 # Expose Render's preferred port
 EXPOSE 10000
