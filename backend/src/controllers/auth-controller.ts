@@ -46,7 +46,7 @@ export const Login = async (
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 3600000,
     };
     res.cookie("auth_token", token, cookieOptions)

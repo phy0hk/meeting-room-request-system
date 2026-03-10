@@ -12,20 +12,6 @@ services:
         ports:
             - "5432:5432"
 
-    # Database GUI
-    pgadmin:
-        image: dpage/pgadmin4
-        env_file:
-            - .env
-        environment:
-            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-            PGADMIN_CONFIG_SERVER_MODE: "False"
-        ports:
-            - "${PGADMIN_PORT}:80"
-        depends_on:
-            - postgres
-
     # Backend (Node.js + Prisma)
     api-server:
         build:
