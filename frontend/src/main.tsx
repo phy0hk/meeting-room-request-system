@@ -5,7 +5,6 @@ import App from "./App.tsx";
 import ThemeProvider from "./provider/theme-provider.tsx";
 import QueryProvier from "./provider/query-provier.tsx";
 import DialogProvider from "./provider/dialog-provider.tsx";
-
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <ThemeProvider>
