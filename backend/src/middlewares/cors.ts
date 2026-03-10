@@ -5,7 +5,10 @@ const cors: RequestHandler = (req, res, next) => {
         "Access-Control-Allow-Origin",
         "https://meeting-room-request-system.onrender.com",
     );
-    res.setHeader("Access-Control-Allow-Methods", "*");
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PUT, DELETE, OPTIONS, PATCH",
+    );
     res.setHeader(
         "Access-Control-Allow-Headers",
         "Content-Type, Authorization",
