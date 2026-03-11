@@ -4,8 +4,10 @@ A robust full-stack solution for managing shared workspace resources, featuring 
 
 ## Deployment
 
+##### #Default Password are the same as username in lowercase
 - **Live Application:** https://meeting-room-request-system.onrender.com
 - **Backend API:** https://meeting-room-request-system-0awa.onrender.com
+
 
 ## Technical Stack
 
